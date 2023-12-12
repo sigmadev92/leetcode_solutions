@@ -1,0 +1,40 @@
+Here is the solution of the Problem :  Remove Duplicates from Sorted Array
+Time complexity - O(n) 
+Space Complexity - O(1)
+--------------------------------------------------------------------------
+class Solution {
+    public int removeDuplicates(int[] nums) {
+       // Input: nums = [0,0,1,1,1,2,2,3,3,4]
+       // Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+        //[1,1,2]
+        int i = 1,l=0,count=1;
+        while(i< nums.length){
+            if(nums[i]!=nums[l]){
+                count++;
+                l++;
+                nums[l]= nums[i];
+            }
+            i++;
+        }
+        return count;
+        
+    }
+}
+----------------------------------------------------ALGORITHM------------------------
+Idea/Approach : Since the array is already sorted, We don't need an additional array or list or container to hold the values of unique elements.
+We have to check the index of last value which was unique.
+We need three things - A previous element,current element and a variable for holding count of unique elements.
+
+Algorithm removeDuplicates(IntegerArray nums) returns an Integer Value
+  start l=0    // Index of first unique element
+        i=1    // Index of current element to be checked whether or not has equal vale as previous element
+        count = 1  //First element is always unique
+        while i < Length_of_nums :     //constraint for terminating while loop
+             if nums[i] != nums[l]:    // if the last unique element is not equal to the current element
+                  count = count + 1    // Unique elements will increase
+                  l = l+1              // Since more unique elements will come if condition becomes true
+                  nums[l] = nums[i]    //We will insert the current unique element at (index of last unique element plus 1)
+             i=i+1                     //this statement will always run
+       
+       return count                    //The Problem says to return the number of unique elements along with modifying the array nums.
+ End
