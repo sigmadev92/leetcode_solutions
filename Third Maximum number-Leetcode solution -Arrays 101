@@ -1,0 +1,28 @@
+Solution to Leetcode Arrays-101 problem-Third Maximum Number
+
+
+
+class Solution {
+    public int thirdMax(int[] nums) {
+        if(nums.length == 2) return nums[0] > nums[1] ? nums[0] : nums[1];
+        if(nums.length == 1) return nums[0];
+        Arrays.sort(nums);
+        int[] a = new int[3];
+        a[0] = nums[nums.length-1];
+        int x=0,i;
+        for(i=nums.length-2;i>=0;i--){
+            if(nums[i] != a[x]){
+                a[x+1] = nums[i];
+                x++;
+            }
+            if(x==2)break;
+        }
+        
+        if(x!=2)
+            return a[0];
+        else
+            return a[2];
+    
+    
+    } 
+}
