@@ -1,0 +1,19 @@
+Leetcode propblem solution for 189-Rotate Array (difficulty : medium)
+
+Space complexity-O(k)
+Time Complexity-O(n)
+class Solution {
+    public void rotate(int[] nums, int k) {
+        k= k% nums.length;
+        int[] nums2 = new int[k]; //O(k)
+
+        int i,x=0;
+        for(i=nums.length-k;i<nums.length;i++){nums2[x] = nums[i];x++;} // this will run for k times
+
+        for(i=nums.length-1;i>=k;i--){nums[i] = nums[i-k];} // this will run for (n-k) times 
+        for(i=0;i<k;i++){nums[i] = nums2[i];} //this will run for k times
+             
+    }
+}
+Time complexity => k + n-k + k -> n+k -> O(n) 
+
