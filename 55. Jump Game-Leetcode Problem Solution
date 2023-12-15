@@ -1,0 +1,62 @@
+Solution for Leetcode Problem 55. Jump Game -> and Algorithm Analysis.
+--------------------------------------------
+Time Complexity : O(n^2) in worst case -> The solution on Leetcode is Accepted as the size of given array is max 10000 and testcases are , I guess, not very 
+large . This is surely not a brute force algorithm but it needs to be optimised. Try to optimize.
+O(1) in Best case
+Best Cases ->
+-----------------------
+1) If length of array nums is 1 => always return true;
+2) If length of array nums is 2 
+    If first element is 0 => return false else return true;
+3) If first element is 0 return false;
+4) If first element is greater than or equal to last_index of array.
+
+Worst Case: consider this array : [100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.....0,1]: That is if array contains (n-2) zeroes.
+The algorithm that I have used will traverse the array from 1 to last_index-1 and it will check for every zero if there exist an element from that zero to 
+starting index such that it is greater than or equal to the distance between index of the next element after that zero and this element. That is,
+i=1;
+k=nums.length-1;
+while(i < k){
+   if(nums[i] ==0){
+       for(short j=i-1;j>=0;j--)
+           if(Nums[j] >= i+1-j)//code
+   }
+}
+
+Idea / Approach :
+----------------
+We have to travel the array from index 1 to Last_index-1 and check :
+  i) If the current element is greater than or equal to distance between it and last index -return true immediately.
+  ii) If the current element is 0 then we have to use the algorithm idea as mentioned in the worst case. If no such element is found for a return false;
+
+  The Solution in java is : 
+  class Solution {
+    public boolean canJump(int[] nums) {
+        
+        if(nums.length == 1) return true;
+        if(nums.length == 2){
+            return nums[0] > 0 ? true : false;
+        }
+        if(nums[0] == 0) return false;
+         
+        boolean ans=false;
+        short k = (short)(nums.length-1),j;
+        short i = 1;
+        while(i < k){
+            ans = false;
+            if(nums[i] >= k-i) return true;
+            if(nums[i] == 0){//3
+                for(j=(short)(i-1);j>=0;j--)
+                    if(nums[j] >= i+1-j){
+                        ans=true;
+                        break;
+                    }
+                
+                if(!ans) return false;
+            }
+        i++;
+        }
+        return ans;
+    }
+}
+
