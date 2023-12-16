@@ -1,0 +1,62 @@
+This file contains the solution and approach for the Leetcode Problem 274. H-Index along with full algorithm analysis.
+
+First Understand H-Index and find H-index for a set of problems. You will find it is purely a mathematical concept and its algorithm can be easily obtained.
+
+Below I have given it.
+Understanding the problem statement : Suppose Mr Andrew Gates is a phd Student persuing their ambition in Civil Engineering. He , in his course time
+has published 100 research papers out of which 97 are cited and 3 are cited for no time. Let an array citations contains all the papers of Mr Gates that
+he has published and citations[i] represent the no. of times an ith paper has been cited.
+
+Suppose a paper has been cited 3 times and all 97 out of 100 papers are cited for atleast 3 then we can write it as (97,3) for convention purpose only.
+
+Let an array represent a case => [1,2,5,4,0,7,6,1,4,5]
+Inference -> Total number of papers => 10;
+Step-1 sort the array on the basis of no. of citation: [0,1,1,2,4,4,5,5,6,7]
+Step-2 Count the number of papers for each distinct citation -> (0,1),(1,2),(2,1),(4,2),(5,2),(6,1),(7,1) => (i,j) => where i represents distinct citation
+and j represents the number of papers for each distinct citation.
+Step-3 We can infere that                 H-index
+  all 10 papers are cited for atleast 0; => 0
+       9 papers are cited for atleast 1  => 1
+       7 papers "     "    "    "     2  => 2
+       6 papers "     "    "    "     4  => 4
+       4 papers "     "    "    "     5  => 4 <- Max
+       2 papers "     "    "    "     6  => 2
+       1 paper  "     "    "    "     7
+  We can clearly see that 4 papers are cited for atleast 4.
+
+  The H-index can be very confusing at first . You can visit here -> https://subjectguides.uwaterloo.ca/calculate-academic-footprint/YourHIndex
+
+  The solution is
+  ===============
+  class Solution {
+    public int hIndex(int[] citations) {
+        
+        Arrays.sort(citations);
+        List<int[]> unique_count= new ArrayList<>();
+        unique_count.add(new int[]{citations[0],1});
+        int k = 0;
+        for(int i = 1;i<citations.length;i++)
+            if(citations[i] == unique_count.get(k)[0])
+                unique_count.get(k)[1]++;
+            else{
+                unique_count.add(new int[]{citations[i],1});
+                k++;
+            }
+        int max=0;
+        int[][] new_array = new int[unique_count.size()][3];
+        for(int i = 0;i<unique_count.size();i++){
+            int sum=0;
+            for( int j = i;j<unique_count.size();j++)
+                sum+=unique_count.get(j)[1];
+            new_array[i][0] = sum;
+            new_array[i][1] = unique_count.get(i)[0];
+            new_array[i][2] = new_array[i][0] <= new_array[i][1] ? new_array[i][0] : new_array[i][1];
+            if(max < new_array[i][2])
+                max = new_array[i][2];
+        }  
+        return max;
+        
+    }
+}
+
+  
