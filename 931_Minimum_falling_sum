@@ -1,0 +1,14 @@
+Leetcode Solution for problem - 931 - Minimum falling sum (medium)
+
+Approach - Dynamic Programming-memoization- (Bottom-up) Approach
+Time complexity-O(n^2)
+Space complexity - O(n^2)
+
+Intuition - We have to traverse from second last row to the zeroth row of the given matrix and store the result of each element in the dp matrix.
+
+Suppose we have this matrix
+ A11 A12 A12 A14 A15 A16 A17 ....A1N
+ A21 A22 A23 A24 A25 A26 A27 ....A2N
+
+ //NOT COMPLETED YET
+ 
